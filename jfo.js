@@ -30,16 +30,25 @@ class JFOHandler{
     }
 }
 
+/**
+ * Enumeration of all possible query modes:
+ * {
+ *  none : 0,
+ *  require : 1,
+ *  exclude : 2
+ * }
+ */
 let attributesQueryModes = {
     none : 0,
     require : 1,
     exclude : 2 
 }
 
-
+/**
+ * Internal object that contains the logic used in the JFOHandler class object
+ */
 var JFO = {
 
-    
     /**
      * Extract the name of an subproperty.
      * Example: prop : "foo.bar", it returns "foo";
@@ -105,7 +114,13 @@ var JFO = {
                     if(filteredFields.indexOf(prop) >= 0){
                         continue;
                     }
-                        
+                    
+                    /*
+                    * If the query mode is 'exclude' it deletes the property from the object
+                    * if its property name is inside the fields array.
+                    * if the query mode is 'require' it only deletes the property from the object
+                    * if its property is NOT inside the fields array.
+                    */
                     if(queryMode == attributesQueryModes.exclude && fields.indexOf(prop) >= 0){
                         delete object[prop];
                     }else if(queryMode == attributesQueryModes.require && fields.indexOf(prop) < 0){
@@ -137,8 +152,8 @@ var JFO = {
 }
 
 /**
- * 
- * @param {Object} filter 
+ * Return an instance of the JFOHandler object
+ * @param {JFOHandler} filter 
  */
 function build(filter){
     return new JFOHandler(filter);
