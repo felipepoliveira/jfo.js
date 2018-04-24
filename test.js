@@ -1,9 +1,8 @@
 var JFO = require("./jfo.js");
 let jfoFilter = JFO({
-    require : [
-        "endereco"
-    ],
-
+    exclude : [
+        "endereco.bairro"
+    ]
 });
 
 let data = [
@@ -30,3 +29,5 @@ let data = [
 let filteredData = jfoFilter.filter(data);
 
 console.log(filteredData);
+
+//X-Filter: {} JFO
